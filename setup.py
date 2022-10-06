@@ -23,9 +23,7 @@ extra_reqs = {
 
 setup(
     name="cdk-bootstrapped-db",
-    description=(
-        "A CDK construct for bootstrapping a database in RDS"
-    ),
+    description=("A CDK construct for bootstrapping a database in RDS"),
     long_description=desc,
     long_description_content_type="text/markdown",
     python_requires=">=3.8",
@@ -38,8 +36,12 @@ setup(
     maintainer="Edward Keeble",
     maintainer_email="edward@developmentseed.org",
     url="https://github.com/developmentseed/cdk-bootstrapped-db",
-    license="",
-    packages=find_namespace_packages(exclude=["tests",]),
+    license="MIT",
+    packages=find_namespace_packages(
+        exclude=[
+            "tests",
+        ]
+    ),
     zip_safe=False,
     include_package_data=True,
     install_requires=install_requires,
