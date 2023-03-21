@@ -8,9 +8,6 @@ with open("README.md") as f:
 with open("VERSION") as version_file:
     version = version_file.read().strip()
 
-# TODO: update stac-fastapi dependencies to use pypi packages when this PR
-# https://github.com/stac-utils/stac-fastapi/pull/308 is included in the next release.
-# (Anything > 2.2.0)
 install_requires = [
     "aws-cdk-lib>=2.0.0",
     "constructs>=10.0.0",
