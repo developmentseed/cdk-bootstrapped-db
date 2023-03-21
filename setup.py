@@ -42,6 +42,7 @@ setup(
             "tests",
         ]
     ),
+    data_files=[("version", ["VERSION"])],
     zip_safe=False,
     include_package_data=True,
     install_requires=install_requires,
