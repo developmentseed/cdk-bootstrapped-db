@@ -9,7 +9,7 @@ def create_database_server(
     scope: Construct,
     id: str,
     vpc: ec2.IVpc,
-    subnet_type: ec2.SubnetType,
+    subnet_selection: ec2.SubnetSelection,
     deletion_protect: bool,
     db_name: Optional[str] = None,
     db_snapshot_arn: Optional[str] = None,
@@ -38,7 +38,7 @@ def create_database_server(
         "instance_identifier": "-".join(
             [v for v in [Stack.of(scope).stack_name, identifier] if v]
         ),
-        "vpc_subnets": {"subnet_type": subnet_type},
+        "vpc_subnets": subnet_selection,
         "deletion_protection": deletion_protect,
         "removal_policy": (
             RemovalPolicy.SNAPSHOT if deletion_protect else RemovalPolicy.DESTROY
