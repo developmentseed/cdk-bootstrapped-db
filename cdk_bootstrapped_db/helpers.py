@@ -51,7 +51,9 @@ def create_database_server(
             **params,
             snapshot_identifier=db_snapshot_arn,
             credentials=rds.SnapshotCredentials.from_generated_password(
-                username="superuser"
+                # Default admin username for Postgres is "postgres" for rds.DatabaseInstance
+                # https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_rds/DatabaseInstance.html#aws_cdk.aws_rds.DatabaseInstance
+                username="postgres"
             ),
         )
 
