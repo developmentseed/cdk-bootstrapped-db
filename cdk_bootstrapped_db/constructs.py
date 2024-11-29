@@ -1,6 +1,5 @@
 import json
 import os
-from datetime import datetime
 from typing import Optional, Union
 
 from aws_cdk import (
@@ -56,7 +55,9 @@ class BootstrappedDb(Construct):
                 secret_string_template=json.dumps(
                     {
                         "dbname": new_dbname,
-                        "engine": db_engine if db_engine else db.engine.engine_type,  # type: ignore
+                        "engine": db_engine
+                        if db_engine
+                        else db.engine.engine_type,  # type: ignore
                         "port": db.instance_endpoint.port,
                         "host": db.instance_endpoint.hostname,
                         "username": new_username,
@@ -83,7 +84,9 @@ class BootstrappedDb(Construct):
                     secret_string_template=json.dumps(
                         {
                             "dbname": new_dbname,
-                            "engine": db_engine if db_engine else db.engine.engine_type,  # type: ignore
+                            "engine": db_engine
+                            if db_engine
+                            else db.engine.engine_type,  # type: ignore
                             "port": db.instance_endpoint.port,
                             "host": db.instance_endpoint.hostname,
                             "username": read_only_username,
@@ -92,7 +95,7 @@ class BootstrappedDb(Construct):
                     generate_string_key="password",
                     exclude_punctuation=True,
                 ),
-                description=f"Read-only user secret deployed by {Stack.of(self).stack_name}",
+                description=f"Read-only user secret deployed by {Stack.of(self).stack_name}",  # noqa: E501
             )
 
         self.provider = custom_resources.Provider(
@@ -108,9 +111,9 @@ class BootstrappedDb(Construct):
 
         # Optionally include the read-only secret ARN
         if self.read_only_secret:
-            resource_properties["read_only_user_secret_arn"] = (
-                self.read_only_secret.secret_arn
-            )
+            resource_properties[
+                "read_only_user_secret_arn"
+            ] = self.read_only_secret.secret_arn
 
         self.resource = CustomResource(
             scope=scope,
