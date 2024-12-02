@@ -11,6 +11,9 @@ def create_database_server(
     vpc: ec2.IVpc,
     subnet_selection: ec2.SubnetSelection,
     deletion_protect: bool,
+    # Default admin username for Postgres is "postgres" for rds.DatabaseInstance
+    # https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_rds/DatabaseInstance.html#aws_cdk.aws_rds.DatabaseInstance
+    db_snapshot_admin_username: str = "postgres",
     db_name: Optional[str] = None,
     db_snapshot_arn: Optional[str] = None,
     db_version: Optional[rds.PostgresEngineVersion] = None,
@@ -51,7 +54,7 @@ def create_database_server(
             **params,
             snapshot_identifier=db_snapshot_arn,
             credentials=rds.SnapshotCredentials.from_generated_password(
-                username="superuser"
+                username=db_snapshot_admin_username
             ),
         )
 
